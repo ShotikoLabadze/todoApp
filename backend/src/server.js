@@ -10,7 +10,9 @@ app.use(cors());
 app.use(express.json());
 
 const authRoutes = require("./routes/authRoutes");
+const taskRoutes = require("./routes/taskRoutes");
 
+app.use("/api/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;

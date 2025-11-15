@@ -1,16 +1,18 @@
-const jwt = require("jsonwebtoken");
+const express = require("express");
+const router = express.Router();
+const authMiddleware = require("../middlewares/authMiddleware");
+const {
+  getTasks,
+  createTask,
+  updateTask,
+  deleteTask,
+} = require("../controllers/taskController");
 
-const authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
+router.use(authMiddleware);
 
-  try {
-    const checked = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = checked;
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: "Invalid token" });
-  }
-};
+router.get("/", getTasks);
+router.post("/", createTask);
+router.put("/:id", updateTask);
+router.delete("/:id", deleteTask);
+
+module.exports = router;
