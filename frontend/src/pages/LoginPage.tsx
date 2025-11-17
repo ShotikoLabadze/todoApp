@@ -17,7 +17,6 @@ const LoginPage: React.FC = () => {
       const res = await API.post("/auth/login", { email, password });
 
       localStorage.setItem("token", res.data.token);
-      alert("Login successful!");
       navigate("/userPage");
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
