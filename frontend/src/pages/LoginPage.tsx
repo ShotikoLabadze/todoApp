@@ -51,6 +51,7 @@ const LoginPage: React.FC = () => {
         <button type="submit" style={{ padding: 10, width: "100%" }}>
           Login
         </button>
+        <button onClick={() => navigate("/register")}>Register</button>
       </form>
     </div>
   );
