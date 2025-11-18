@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
+import "./PersonalNotes.css";
 
 interface NoteProps {
   id: number;
@@ -62,63 +63,45 @@ const PersonalNotes = () => {
   };
 
   return (
-    <div style={{ maxWidth: 800, margin: "50px auto" }}>
-      <h2>Personal Notes</h2>
+    <div className="notes-container">
+      <div className="notes-card">
+        <h2>Personal Notes</h2>
 
-      <div style={{ marginBottom: 20 }}>
         <h3>Add New Note</h3>
         <input
           type="text"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          style={{ padding: 8, width: "100%", marginBottom: 8 }}
         />
 
         <textarea
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          style={{ padding: 8, width: "100%", marginBottom: 8 }}
         />
 
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          style={{ padding: 8, marginBottom: 8 }}
-        >
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="todo">Todo</option>
           <option value="in-progress">In Progress</option>
           <option value="done">Done</option>
         </select>
 
-        <button onClick={createNote} style={{ padding: 10, width: "100%" }}>
+        <button onClick={createNote} className="btn-add">
           Add Note
         </button>
       </div>
 
-      <div>
+      <div className="notes-card">
         <h3>Your Notes</h3>
         {notes.length === 0 && <p>No notes found</p>}
 
         {notes.map((note) => (
-          <div
-            key={note.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: 10,
-              marginBottom: 8,
-              borderRadius: 5,
-            }}
-          >
+          <div key={note.id} className="note-item">
             <h4>{note.title}</h4>
             <p>{note.content}</p>
             <p>Status: {note.status}</p>
-
-            <button
-              onClick={() => deleteNote(note.id)}
-              style={{ padding: 5, background: "red", color: "white" }}
-            >
+            <button onClick={() => deleteNote(note.id)} className="btn-delete">
               Delete
             </button>
           </div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
+import todoImg from "../img/todo.png";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +17,6 @@ const LoginPage: React.FC = () => {
 
     try {
       const res = await API.post("/auth/login", { email, password });
-
       localStorage.setItem("token", res.data.token);
       navigate("/userPage");
     } catch (err: any) {
@@ -24,35 +25,48 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "50px auto" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 10 }}>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ width: "100%", padding: 8 }}
-          />
+    <div className="login-container">
+      <div className="login-left">
+        <div className="login-box">
+          <h2>Welcome Back</h2>
+
+          <form onSubmit={handleSubmit}>
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            {error && <p className="error">{error}</p>}
+
+            <button type="submit" className="btn-login">
+              Login
+            </button>
+
+            <button
+              type="button"
+              className="btn-register"
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </button>
+          </form>
         </div>
-        <div style={{ marginBottom: 10 }}>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: "100%", padding: 8 }}
-          />
-        </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" style={{ padding: 10, width: "100%" }}>
-          Login
-        </button>
-        <button onClick={() => navigate("/register")}>Register</button>
-      </form>
+      </div>
+
+      <div className="login-right">
+        <img src={todoImg} alt="Login visual" />
+      </div>
     </div>
   );
 };

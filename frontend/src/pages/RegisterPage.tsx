@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -18,42 +19,39 @@ const RegisterPage = () => {
   };
 
   return (
-    <div style={{ width: "300px", margin: "50px auto" }}>
-      <h2>Register</h2>
+    <div className="register-container">
+      <div className="register-card">
+        <h2>Register</h2>
 
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br />
-      <br />
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <br />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <br />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <button onClick={registerUser}>Register</button>
+        <button className="btn-register" onClick={registerUser}>
+          Register
+        </button>
 
-      <br />
-      <br />
-
-      <button onClick={() => navigate("/")}>Back to Login</button>
+        <button className="btn-back" onClick={() => navigate("/")}>
+          Back to Login
+        </button>
+      </div>
     </div>
   );
 };
