@@ -13,7 +13,7 @@ Users can **register**, **log in**, and manage personal notes in a clean gradien
 
 ### Register Page
 
-![Register Page](screenshots/RegisterPage.png)
+![Register Page](screenshots/registerPage.png)
 
 ### Notes Page
 
