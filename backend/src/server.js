@@ -13,6 +13,10 @@ const taskRoutes = require("./routes/taskRoutes");
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Backend is running!");
+});
+
 connect().catch((err) => {
   console.error("MongoDB connection failed:", err);
 });
