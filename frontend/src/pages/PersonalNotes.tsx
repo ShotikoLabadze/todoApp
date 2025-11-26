@@ -3,9 +3,9 @@ import API from "../api/api";
 import "./PersonalNotes.css";
 
 interface NoteProps {
-  id: number;
+  _id: string;
   title: string;
-  content: string;
+  description: string;
   status: string;
 }
 
@@ -50,13 +50,13 @@ const PersonalNotes = () => {
     }
   };
 
-  const deleteNote = async (id: number) => {
+  const deleteNote = async (_id: string) => {
     if (!token) return;
     try {
-      await API.delete(`/tasks/${id}`, {
+      await API.delete(`/tasks/${_id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setNotes(notes.filter((note) => note.id !== id));
+      setNotes(notes.filter((note) => note._id !== _id));
     } catch (err) {
       console.error("Failed to delete note", err);
     }
@@ -97,11 +97,11 @@ const PersonalNotes = () => {
         {notes.length === 0 && <p>No notes found</p>}
 
         {notes.map((note) => (
-          <div key={note.id} className="note-item">
+          <div key={note._id} className="note-item">
             <h4>{note.title}</h4>
-            <p>{note.content}</p>
+            <p>{note.description}</p>
             <p>Status: {note.status}</p>
-            <button onClick={() => deleteNote(note.id)} className="btn-delete">
+            <button onClick={() => deleteNote(note._id)} className="btn-delete">
               Delete
             </button>
           </div>
