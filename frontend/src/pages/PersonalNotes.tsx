@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "./PersonalNotes.css";
 
@@ -15,6 +16,7 @@ const PersonalNotes = () => {
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("todo");
 
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const fetchNotes = async () => {
@@ -30,8 +32,17 @@ const PersonalNotes = () => {
   };
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    if (!token) {
+      navigate("/");
+    } else {
+      fetchNotes();
+    }
+  }, [token, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   const createNote = async () => {
     if (!token) return;
@@ -39,7 +50,7 @@ const PersonalNotes = () => {
       const res = await API.post(
         "/tasks",
         { title, description: content, status },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setNotes([...notes, res.data]);
       setTitle("");
@@ -64,6 +75,10 @@ const PersonalNotes = () => {
 
   return (
     <div className="notes-container">
+      <button onClick={handleLogout} className="btn-logout-top">
+        Logout
+      </button>
+
       <div className="notes-card">
         <h2>Personal Notes</h2>
 
@@ -94,13 +109,19 @@ const PersonalNotes = () => {
 
       <div className="notes-card">
         <h3>Your Notes</h3>
-        {notes.length === 0 && <p>No notes found</p>}
+        {notes.length === 0 && (
+          <p style={{ textAlign: "center", color: "#6b7280" }}>
+            No notes found
+          </p>
+        )}
 
         {notes.map((note) => (
           <div key={note._id} className="note-item">
             <h4>{note.title}</h4>
             <p>{note.description}</p>
-            <p>Status: {note.status}</p>
+            <p className="note-status">
+              Status: <span>{note.status}</span>
+            </p>
             <button onClick={() => deleteNote(note._id)} className="btn-delete">
               Delete
             </button>

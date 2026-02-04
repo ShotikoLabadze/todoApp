@@ -3,88 +3,235 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-
-  background: linear-gradient(
-    163deg,
-    rgba(255, 182, 193, 1) 32%,
-    rgba(0, 128, 128, 1) 89%
-  );
+  background: linear-gradient(160deg, #fdf4ff 0%, #f5f3ff 40%, #f0fdfa 100%);
   padding: 50px 20px;
   box-sizing: border-box;
+  position: relative;
+}
+
+.notes-container::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(168, 85, 247, 0.1) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.notes-container::after {
+  content: "";
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(
+    circle,
+    rgba(20, 184, 166, 0.1) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .notes-card {
   width: 100%;
-  max-width: 800px;
-
-  background: #fff4e6;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  max-width: 680px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 28px;
+  box-shadow:
+    0 20px 60px rgba(168, 85, 247, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.03);
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
 }
 
-.notes-card h2,
-.notes-card h3 {
-  color: #008080;
+.notes-card h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #a855f7, #14b8a6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.notes-card h3 {
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .notes-card input,
 .notes-card textarea,
 .notes-card select {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  border: none;
+  background: rgba(249, 250, 251, 0.9);
+  color: #1e1b4b;
+  font-size: 15px;
   box-sizing: border-box;
-  background: #fff8f0;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.notes-card textarea {
+  min-height: 130px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.notes-card input:focus,
+.notes-card textarea:focus,
+.notes-card select:focus {
+  outline: none;
+  background: #fff;
+  box-shadow:
+    0 0 0 4px rgba(168, 85, 247, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.notes-card select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+  background-color: rgba(249, 250, 251, 0.9);
 }
 
 .btn-add {
   width: 100%;
-  padding: 12px;
-  background: #008080;
+  padding: 18px;
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 14px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
 }
 
 .btn-add:hover {
-  opacity: 0.9;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(168, 85, 247, 0.4);
 }
 
 .note-item {
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  background: #fff8f0;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.note-item:nth-child(2n) {
+  background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+}
+
+.note-item:nth-child(3n) {
+  background: linear-gradient(135deg, #fdf4ff 0%, #f5d0fe 100%);
+}
+
+.note-item:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
 .note-item h4 {
-  color: #008080;
-  margin-bottom: 5px;
+  color: #1e1b4b;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .note-item p {
-  margin: 5px 0;
+  margin: 8px 0;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .btn-delete {
-  padding: 6px 10px;
-  background: #ffb6c1;
-  color: #008080;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #dc2626;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 14px;
 }
 
 .btn-delete:hover {
-  opacity: 0.8;
+  background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+  transform: scale(1.03);
+} /* Add these to your existing PersonalNotes.css */
+
+.btn-logout-top {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.btn-logout-top:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.note-status {
+  font-size: 13px !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7280 !important;
+}
+
+.note-status span {
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-left: 5px;
+}
+
+/* Ensure the container handles the absolute button positioning */
+.notes-container {
+  position: relative;
 }
