@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "./PersonalNotes.css";
@@ -19,7 +19,7 @@ const PersonalNotes = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     if (!token) return;
     try {
       const res = await API.get("/tasks", {
@@ -29,7 +29,7 @@ const PersonalNotes = () => {
     } catch (err) {
       console.error("Failed to fetch notes", err);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     if (!token) {
@@ -37,7 +37,7 @@ const PersonalNotes = () => {
     } else {
       fetchNotes();
     }
-  }, [token, navigate]);
+  }, [token, navigate, fetchNotes]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -81,7 +81,6 @@ const PersonalNotes = () => {
 
       <div className="notes-card">
         <h2>Personal Notes</h2>
-
         <h3>Add New Note</h3>
         <input
           type="text"
@@ -89,19 +88,16 @@ const PersonalNotes = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-
         <textarea
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="todo">Todo</option>
           <option value="in-progress">In Progress</option>
           <option value="done">Done</option>
         </select>
-
         <button onClick={createNote} className="btn-add">
           Add Note
         </button>
@@ -114,7 +110,6 @@ const PersonalNotes = () => {
             No notes found
           </p>
         )}
-
         {notes.map((note) => (
           <div key={note._id} className="note-item">
             <h4>{note.title}</h4>
