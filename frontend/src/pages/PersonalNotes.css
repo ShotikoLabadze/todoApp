@@ -189,7 +189,7 @@
 .btn-delete:hover {
   background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
   transform: scale(1.03);
-} /* Add these to your existing PersonalNotes.css */
+} 
 
 .btn-logout-top {
   position: absolute;
@@ -231,7 +231,7 @@
   margin-left: 5px;
 }
 
-/* Ensure the container handles the absolute button positioning */
+
 .notes-container {
   position: relative;
 }

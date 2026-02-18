@@ -9,15 +9,11 @@ Users can **register**, **log in**, and manage personal notes in a clean gradien
 
 ### Login Page
 
-![Login Page](screenshots/loginPage.png)
-
-### Register Page
-
-![Register Page](screenshots/registerPage.png)
+![Login Page](screenshots/register.png)
 
 ### Notes Page
 
-![Notes Page](screenshots/personalNotes.png)
+![Notes Page](screenshots/personal.png)
 
 ---
 
